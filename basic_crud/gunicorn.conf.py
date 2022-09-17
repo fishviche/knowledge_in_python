@@ -13,6 +13,7 @@ def _apply_migrations(server, cur, conn):
             conn.commit()
         except psycopg2.errors.DuplicateTable:
             server.log.info("=> Table exists")
+    cur.close()
     conn.close()
 
 

@@ -6,4 +6,7 @@ users = Blueprint("users", __name__)
 
 @users.route('', methods = ['GET', 'POST'])
 def home():
+    conn = get_db_connection()
+    cur = conn.cursor()
+    
     return 'Hello world'
