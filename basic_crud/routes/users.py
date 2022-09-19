@@ -2,6 +2,7 @@ from psycopg2.extras import RealDictCursor
 from flask import Blueprint, request
 from utils.connection_db import get_db_connection
 from models.users import insert_user
+
 users = Blueprint("users", __name__)
 
 
@@ -18,10 +19,12 @@ def home():
         """
         cur.execute(get_users)
         users = cur.fetchall()
-        cur.close()
-        conn.close()
         return users
     if request.method == "POST":
         conn = get_db_connection()
         cur = conn.cursor(cursor_factory=RealDictCursor)
-        print(request.form)
+        response = insert_user(request.get_json(), cur)
+        conn.commit()
+        return response
+    cur.close()
+    conn.close()

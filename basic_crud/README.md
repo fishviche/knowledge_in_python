@@ -13,3 +13,22 @@ CREATE USER crudflask_user with encrypted password 'cR7d.@db_s1mp3';
 GRANT ALL PRIVILEGES ON DATABASE crudflask TO crudflask_user;
 \q
 ```
+
+## API - Users
+| API | Method | Description | Params |
+| --- | ------ | ----------- | ------ |
+| Users | Get | Get all users | - |
+|  | Post | Add a user | Json with fullname, email  and phone as params  |
+| --- | ------ | ----------- | ------ |
+### Examples
+#### Post API
+```
+curl -d '{"fullname":"Pedro Iglesias","phone":"987654321", "email":"pedrito@iglesias.com"}' -H "Content-Type: application/json" http://localhost:5006/api/users
+```
+#### Response
+```
+{
+  "error": false,
+  "message": "User created"
+}
+```
