@@ -7,7 +7,7 @@ users = Blueprint("users", __name__)
 
 
 @users.route("", methods=["GET", "POST"])
-def home():
+def all_users():
     if request.method == "GET":
         conn = get_db_connection()
         cur = conn.cursor(cursor_factory=RealDictCursor)
@@ -26,5 +26,26 @@ def home():
         response = insert_user(request.get_json(), cur)
         conn.commit()
         return response
+    cur.close()
+    conn.close()
+    
+
+@users.route("/user", methods=["GET", "POST"])
+def one_user():
+    if request.method == "GET":
+        user_id = request.values.get('id')
+        conn = get_db_connection()
+        cur = conn.cursor(cursor_factory=RealDictCursor)
+        get_users = """
+        SELECT
+            fullname, email, phone
+        FROM
+            users
+        WHERE
+            id = %s
+        """
+        cur.execute(get_users, (user_id))
+        user = cur.fetchone()
+        return user
     cur.close()
     conn.close()
