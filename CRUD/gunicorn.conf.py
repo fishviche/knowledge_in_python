@@ -23,3 +23,4 @@ def when_ready(server):
     cur = conn.cursor()
     _apply_migrations(server, cur, conn)
     server.log.info("Spawning workers")
+    
