@@ -20,7 +20,7 @@ GRANT ALL PRIVILEGES ON DATABASE crudflask TO crudflask_user;
 | / | Get | Get all users | - |
 |  | Post | Add a user | Json with fullname, email  and phone as params  |
 | /user | Get | Get one user | User ID |
-| --- | ------ | ----------- | ------ |
+|  | PUT | Udpate one user | Json with fullname, email, phone and id as params |
 ### Examples
 #### Get API
 ```
@@ -43,5 +43,16 @@ curl -d '{"fullname":"Pedro Iglesias","phone":"987654321", "email":"pedrito@igle
 {
   "error": false,
   "message": "User created"
+}
+```
+#### PUT API
+```
+curl -d '{"fullname":"Pedro Iglesias","phone":"987654321", "email":"pedrito@iglesias.com","id":"1"}' -H "Content-Type: application/json" -X PUT http://localhost:5011/api/users/user
+```
+#### Response
+```
+{
+  "error": false,
+  "message": "User updated"
 }
 ```

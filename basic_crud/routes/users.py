@@ -1,7 +1,7 @@
 from psycopg2.extras import RealDictCursor
 from flask import Blueprint, request
 from utils.connection_db import get_db_connection
-from models.users import get_user, insert_user
+from models.users import get_user, insert_user, update_user
 
 users = Blueprint("users", __name__)
 
@@ -32,6 +32,10 @@ def one_user():
         response = get_user(cur, int(user_id))
         return response
     if request.method == "PUT":
-        return
+        conn = get_db_connection()
+        cur = conn.cursor(cursor_factory=RealDictCursor)
+        response = update_user(request.get_json(), cur)
+        conn.commit()
+        return response
     cur.close()
     conn.close()

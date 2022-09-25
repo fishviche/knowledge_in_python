@@ -58,3 +58,34 @@ def insert_user(user_info: dict, cur):
     cur.execute(query_insert, user_info)
     response = {"error": False, "message": "User created"}
     return response
+
+
+def update_user(user_info: dict, cur):
+    """
+    Function to update users
+    Input:
+        user_info(dict): Dict with user data
+        cur
+        conn
+    Output:
+        response(dict): Dict with error(bool) and message(str)
+    """
+    response = check_data(user_info)
+    if response["error"]:
+        return response
+    response = check_id(user_info['id'])
+    if response["error"]:
+        return response
+    update_user = """
+        UPDATE
+            users
+        SET
+            fullname = %(fullname)s, 
+            email = %(email)s, 
+            phone = %(phone)s
+        WHERE
+            id = %(id)s
+    """
+    cur.execute(update_user, user_info)
+    response = {"error": False, "message": "User updated"}
+    return response
