@@ -21,12 +21,3 @@ class TestUser:
 
         assert response["error"] is True
         assert response["message"] == "Some data is too long"
-
-
-# def f():
-#     raise SystemExit(1)
-
-
-# def test_mytest():
-#     with pytest.raises(SystemExit):
-#         f()
