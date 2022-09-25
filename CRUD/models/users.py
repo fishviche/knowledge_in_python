@@ -89,3 +89,25 @@ def update_user(user_info: dict, cur):
     cur.execute(update_user, user_info)
     response = {"error": False, "message": "User updated"}
     return response
+
+def delete_user(cur, id: int):
+    """
+    Function to delete one user
+    Input:
+        Id(int): User ID
+        cur:
+    Output:
+        response(dict): Dict with error(bool) and message(str)
+    """
+    response = check_id(id)
+    if response["error"]:
+        return response
+    delete_user = """
+        DELETE FROM
+            users
+        WHERE
+            id = %s
+    """
+    cur.execute(delete_user, (id, ))
+    response = {"error": False, "message": "User deleted"}
+    return response
