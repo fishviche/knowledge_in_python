@@ -1,4 +1,41 @@
-from schemas.users_schema import check_data
+from schemas.users_schema import check_data, check_id
+
+
+def get_user(cur, id=0):
+    """
+    Function to get all users by default or one user
+    Input:
+        Id(int): User ID, by default is 0
+        cur:
+    Output:
+        response(dict): Dict with all users or one user
+    """
+    response = check_id(id)
+    if response["error"]:
+        return response
+    get_users = """
+        WITH one_user AS (SELECT * FROM users WHERE id = %s)
+        SELECT
+            *
+        FROM
+            one_user
+        UNION 
+        SELECT
+            *
+        FROM
+            users
+        WHERE NOT EXISTS (SELECT * FROM one_user LIMIT 1) 
+        """
+    cur.execute(get_users, (id,))
+    users = cur.fetchall()
+    if id != 0 and len(users) > 1:
+        response["error"] = True
+        response["message"] = "User ID not exists"
+        return response
+    response["error"] = False
+    response["message"] = "Sucess"
+    response["data"] = users
+    return response
 
 
 def insert_user(user_info: dict, cur):

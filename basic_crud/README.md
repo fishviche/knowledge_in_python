@@ -19,8 +19,8 @@ GRANT ALL PRIVILEGES ON DATABASE crudflask TO crudflask_user;
 | --- | ------ | ----------- | ------ |
 | / | Get | Get all users | - |
 |  | Post | Add a user | Json with fullname, email  and phone as params  |
-| --- | ------ | ----------- | ------ |
 | /user | Get | Get one user | User ID |
+| --- | ------ | ----------- | ------ |
 ### Examples
 #### Get API
 ```

@@ -18,3 +18,13 @@ def check_data(params: dict):
         response["message"] = "Incomplete data"
         response["error"] = True
     return response
+
+
+def check_id(id: int):
+    response = {"error": False, "message": ""}
+    try:
+        id = int(id)
+    except ValueError as e:
+        response["message"] = "ID is not a integer"
+        response["error"] = True
+    return response
