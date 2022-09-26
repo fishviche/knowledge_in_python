@@ -40,7 +40,7 @@ def one_user():
     if request.method == "DELETE":
         conn = get_db_connection()
         cur = conn.cursor(cursor_factory=RealDictCursor)
-        response = delete_user(request.get_json()["id"], cur)
+        response = delete_user(cur, request.get_json()["id"])
         conn.commit()
         return response
     cur.close()
