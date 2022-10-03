@@ -6,7 +6,7 @@ try:
     # Connect to an existing database
     conn = psycopg2.connect(
         host=os.environ["DB_HOST"],
-        port="5432",
+        port=os.environ["DB_PORT"],
         database="crudflask",
         user=os.environ["DB_USERNAME"],
         password=os.environ["DB_PASSWORD"]
