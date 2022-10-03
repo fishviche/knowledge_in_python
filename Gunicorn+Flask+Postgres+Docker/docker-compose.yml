@@ -1,0 +1,33 @@
+version: '3.7'
+services:
+    crud_db:
+      image: postgres:12
+      environment:
+        PGDATA: /var/lib/postgresql/data/pgdata
+        POSTGRES_DB: crudflask
+        POSTGRES_PASSWORD: cR7d.@us3r
+        POSTGRES_USER: crudflask
+      volumes:
+        - /home/erick/databases/crudflask:/var/lib/postgresql/data
+      networks:
+        - crud_network
+    crud_app:
+      # image: crud_crud:latest
+      restart: always
+      build: .
+      command:
+        - gunicorn
+        - index:app
+        - -b
+        - 0.0.0.0:5000
+        - --log-level=DEBUG
+        - --reload
+      networks:
+        - crud_network
+      expose:
+        - "5000"
+      ports:
+        - "5000:5000"
+networks:
+  crud_network:
+    driver: bridge
