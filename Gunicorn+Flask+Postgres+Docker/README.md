@@ -1,4 +1,4 @@
-# BASIC CRUD WITH FLASK
+# CRUD IN FLASK + GUNICORN + POSTGRES
 
 ## Create Database
 If any changes are made, don't forget to modify connection_db.py
@@ -55,4 +55,9 @@ curl -d '{"fullname":"Pedro Iglesias","phone":"987654321", "email":"pedrito@igle
   "error": false,
   "message": "User updated"
 }
+```
+
+# WITH DOCKER
+```
+docker-compose up -d --build
 ```
